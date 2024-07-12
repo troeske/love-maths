@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function(){
     for (let button of buttons){
         button.addEventListener("click", function() {
             if (this.getAttribute("data-type") === "submit") {
-                alert("You clicked submit");
+                checkAnswer();
             } else {
                 let gameType = this.getAttribute("data-type");
                 runGame(gameType);
@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function(){
 })
 
 /** 
- * hte main game 'loop' called when script is first loaded
+ * the main game 'loop' called when script is first loaded
  * and after the user's answer has been processed
 */
 function runGame(gameType) {
@@ -32,12 +32,39 @@ function runGame(gameType) {
     }
 }
 
+/**
+ * checks if the answer is correct
+ */
 function checkAnswer() {
+    let userAnswer = parseInt(document.getElementById("answer-box").value);
+    let calculatedAnswer = calculateCorrectAnswer();
 
+    let isCorrect = userAnswer === calculatedAnswer[0];
+
+    if (isCorrect) {
+        alert("Hey! You got it right!! :-) ");
+    } else {
+        alert(`Awww..your answer: ${userAnswer}. The correct Answer is: ${calculatedAnswer[0]}`);
+    }
+    document.getElementById("answer-box").value = "";
+    
+    runGame(calculatedAnswer[1]);
 }
 
+/**
+ * get operands from the DOM and calculate answer
+ */
 function calculateCorrectAnswer() {
+    let operand1 = parseInt(document.getElementById("operand1").innerText);
+    let operand2 = parseInt(document.getElementById("operand2").innerText);
+    let operator = document.getElementById("operator").innerText;
 
+    if (operator === "+") {
+        return [operand1 + operand2, "addition"];
+    } else {
+        alert(`unimplemeted operator: ${operator}`);
+        throw `unimplemeted operator: ${operator} - Aborting!`;
+    }
 }
 
 function incrementScore() {
