@@ -42,10 +42,13 @@ function checkAnswer() {
     let isCorrect = userAnswer === calculatedAnswer[0];
 
     if (isCorrect) {
+        incrementScore();
         alert("Hey! You got it right!! :-) ");
     } else {
+        incrementWrongAnswer();
         alert(`Awww..your answer: ${userAnswer}. The correct Answer is: ${calculatedAnswer[0]}`);
     }
+    /* delete the answer */
     document.getElementById("answer-box").value = "";
     
     runGame(calculatedAnswer[1]);
@@ -66,13 +69,18 @@ function calculateCorrectAnswer() {
         throw `unimplemeted operator: ${operator} - Aborting!`;
     }
 }
-
+/**
+ * gets the score incremented
+ */
 function incrementScore() {
+    let oldScore = parseInt(document.getElementById("score").innerText);
+    document.getElementById("score").innerText = ++oldScore;
 
 }
 
 function incrementWrongAnswer() {
-
+    let oldScore = parseInt(document.getElementById("incorrect").innerText);
+    document.getElementById("incorrect").innerText = ++oldScore;
 }
 
 function displayAdditionQuestion(operand1, operand2) {
