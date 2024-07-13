@@ -26,6 +26,12 @@ function runGame(gameType) {
 
     if (gameType === "addition") {
         displayAdditionQuestion(num1, num2);
+    } else if (gameType === "subtract") {
+        displaySubtractQuestion(num1, num2);
+    } else if (gameType === "multiply") {
+        displayMultiplyQuestion(num1, num2);
+    } else if (gameType === "divide") {
+        displayDivideQuestion(num1, num2);
     } else {
         alert(`unknown game type: ${gameType}`);
         throw `unknown game type: ${gameType} - Aborting!`;
@@ -43,10 +49,8 @@ function checkAnswer() {
 
     if (isCorrect) {
         incrementScore();
-        alert("Hey! You got it right!! :-) ");
     } else {
         incrementWrongAnswer();
-        alert(`Awww..your answer: ${userAnswer}. The correct Answer is: ${calculatedAnswer[0]}`);
     }
     /* delete the answer */
     document.getElementById("answer-box").value = "";
@@ -64,7 +68,13 @@ function calculateCorrectAnswer() {
 
     if (operator === "+") {
         return [operand1 + operand2, "addition"];
-    } else {
+    } else if (operator === "-") {
+        return [operand1 - operand2, "subtract"];
+    } else if (operator === "*") {
+        return [operand1 * operand2, "multiply"];
+    } else if (operator === "/") {
+        return [operand1 / operand2, "divide"];
+    }else {
         alert(`unimplemeted operator: ${operator}`);
         throw `unimplemeted operator: ${operator} - Aborting!`;
     }
@@ -89,10 +99,21 @@ function displayAdditionQuestion(operand1, operand2) {
     document.getElementById("operator").textContent = "+";
 }
 
-function displaySubtractQuestion() {
-
+function displaySubtractQuestion(operand1, operand2) {
+    /* make sure we don't have negative answers */
+    document.getElementById("operand1").textContent = operand1 > operand2 ? operand1 : operand2;
+    document.getElementById("operand2").textContent = operand1 > operand2 ? operand2 : operand1;
+    document.getElementById("operator").textContent = "-";
 }
 
-function displayMultiplyQuestions() {
+function displayMultiplyQuestion(operand1, operand2) {
+    document.getElementById("operand1").textContent = operand1;
+    document.getElementById("operand2").textContent = operand2;
+    document.getElementById("operator").textContent = "*";
+}
 
+function displayDivideQuestion(operand1, operand2) {
+    document.getElementById("operand1").textContent = operand1;
+    document.getElementById("operand2").textContent = operand2;
+    document.getElementById("operator").textContent = "/";
 }
